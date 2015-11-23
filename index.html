@@ -103,6 +103,28 @@
           </hgroup>
   </slide>
 
+<style>
+h1 {
+  display: block;
+    font-size: 4em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    color: green
+}
+h3{
+  display: block;
+    font-size: 1.2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+</style>
+
 <slide class=''><hgroup><h2>Introduction</h2></hgroup><article  id="introduction">
 
 <p>Objectives:</p>
@@ -138,29 +160,29 @@ test &lt;- fromJSON(&quot;test.json&quot;, flatten = TRUE)</pre>
 
 <img src='https://raw.githubusercontent.com/StaroMoon/Cooking/master/train.jpg' title=''/>
 
-</article></slide><slide class=''><hgroup><h2>Plot graph</h2></hgroup><article  id="plot-graph">
+</article></slide><slide class=''><hgroup><h2>Plot graph from train</h2></hgroup><article  id="plot-graph-from-train">
 
-<p><div id="plot_id193124561-container" class="ggvis-output-container">
-<div id="plot_id193124561" class="ggvis-output"></div>
+<p><div id="plot_id935115512-container" class="ggvis-output-container">
+<div id="plot_id935115512" class="ggvis-output"></div>
 <div class="plot-gear-icon">
 <nav class="ggvis-control">
 <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
 <ul class="ggvis-dropdown">
 <li>
 Renderer: 
-<a id="plot_id193124561_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id193124561" data-renderer="svg">SVG</a>
+<a id="plot_id935115512_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id935115512" data-renderer="svg">SVG</a>
  | 
-<a id="plot_id193124561_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id193124561" data-renderer="canvas">Canvas</a>
+<a id="plot_id935115512_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id935115512" data-renderer="canvas">Canvas</a>
 </li>
 <li>
-<a id="plot_id193124561_download" class="ggvis-download" data-plot-id="plot_id193124561">Download</a>
+<a id="plot_id935115512_download" class="ggvis-download" data-plot-id="plot_id935115512">Download</a>
 </li>
 </ul>
 </nav>
 </div>
 </div>
 <script type="text/javascript">
-var plot_id193124561_spec = {
+var plot_id935115512_spec = {
   "data": [
     {
       "name": ".0/count1/stack2",
@@ -300,7 +322,7 @@ var plot_id193124561_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_id193124561").parseSpec(plot_id193124561_spec);
+ggvis.getPlot("plot_id935115512").parseSpec(plot_id935115512_spec);
 </script></p>
 
 </article></slide><slide class=''><hgroup><h2>Pre-processing data</h2></hgroup><article  id="pre-processing-data">
@@ -322,11 +344,11 @@ test$ingredients &lt;- lapply(test$ingredients,
 
 <center>
 
-<h1>
+<h3>
 
 Create document term matrix
 
-</h1>
+</h3>
 
 </center>
 
@@ -348,9 +370,9 @@ Create document term matrix
 ## Maximal term length: 19
 ## Weighting          : term frequency (tf)</pre>
 
-</article></slide><slide class=''><hgroup><h2>Convert Document matrix back</h2></hgroup><article  id="convert-document-matrix-back">
+</article></slide><slide class=''><hgroup><h2>Convert back</h2></hgroup><article  id="convert-back">
 
-<p>After we have finished with the document matrix, we&#39;ll convert it back to dataframe. Then add a new column call &quot;cuisine&quot; ,and makes it as factor.</p>
+<p>convert back the document matrix to dataframe and add a new &quot;cuisine&quot; column</p>
 
 <pre class = 'prettyprint lang-r'>dtm &lt;- as.data.frame(as.matrix(dtm))
 dtm$cuisine &lt;- as.factor(c(train$cuisine, rep(&quot;italian&quot;, nrow(test))))</pre>
@@ -396,10 +418,12 @@ pred_tree &lt;- predict(tree, dtm_test, type = &quot;class&quot;)</pre>
 
 xgb &lt;- xgboost(dtrain, max.depth = 40, eta = 0.07, 
                nround = 1000, objective = &quot;multi:softmax&quot;,
-               num_class = 20)
-pred_xgb &lt;- predict(xgb, newdata = data.matrix(test_new
-                                               [,colnames(test_new) != &quot;cuisine&quot;]))
-pred_string &lt;- levels(train_new$cuisine)[pred_xgb+1]</pre>
+               num_class = 20)</pre>
+
+<pre class = 'prettyprint lang-r'>pred_xgb &lt;- predict(xgb, newdata = 
+                      data.matrix(
+                        test_test[,colnames(test_test) != &quot;cuisine&quot;]))
+pred_string &lt;- levels(train_test$cuisine)[pred_xgb+1]</pre>
 
 <p><a href='https://raw.githubusercontent.com/StaroMoon/Cooking/master/confusion_xgb.png' title=''>Confusion matrix</a></p>
 
@@ -407,33 +431,35 @@ pred_string &lt;- levels(train_new$cuisine)[pred_xgb+1]</pre>
 
 <p>Predict the data with the model</p>
 
-<pre class = 'prettyprint lang-r'>dtrain &lt;- xgb.DMatrix(Matrix(data.matrix(train_new[,colnames(train_new) != &quot;cuisine&quot;])),
-                      label = as.numeric(train_new$cuisine)-1)
+<pre class = 'prettyprint lang-r'>dtrain &lt;- xgb.DMatrix(Matrix(data.matrix(
+                  dtm_train[,colnames(dtm_train) != &quot;cuisine&quot;])),
+                  label = as.numeric(dtm_train$cuisine)-1)
 xgb &lt;- xgboost(dtrain, max.depth = 40, eta = 0.07, 
                nround = 1000, objective = &quot;multi:softmax&quot;,
                num_class = 20)</pre>
 
-<pre class = 'prettyprint lang-r'>pred_xgb &lt;- predict(xgb, newdata = data.matrix(test_new[,colnames(test_new) != &quot;cuisine&quot;]))
-pred_string &lt;- levels(train_new$cuisine)[pred_xgb+1]</pre>
+<pre class = 'prettyprint lang-r'>pred_xgb &lt;- predict(xgb, newdata = 
+                      data.matrix(
+                        dtm_test[,colnames(dtm_test) != &quot;cuisine&quot;]))
+pred_string &lt;- levels(dtm_train$cuisine)[pred_xgb+1]</pre>
 
 <img src='https://raw.githubusercontent.com/StaroMoon/Cooking/master/submit_xgb.png' title=''/>
 
 </article></slide><slide class=''><hgroup><h2>Make submission file</h2></hgroup><article  id="make-submission-file">
 
 <pre class = 'prettyprint lang-r'>sample_sub &lt;- read.csv(&quot;sample_submission.csv&quot;)
-submit_match &lt;- cbind(as.data.frame(dtm_test$id), as.data.frame(pred_tree))
+submit_match &lt;- cbind(as.data.frame(dtm_test$id), 
+                      as.data.frame(pred_tree))
 colnames(submit_match) &lt;-c(&quot;id&quot;,&quot;cuisine&quot;)
 write.csv(submit_match, file = &quot;submit.csv&quot;, row.names=FALSE)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Result</h2></hgroup><article  id="result">
 
-<p>Decision tree -&gt; 0.484 = 48.4 %</p>
-
-<p>Xgboost tree -&gt; 0.797 = 79.7 %</p>
+<p>Decision tree -&gt; 0.484 = 48.4 % <img src='https://raw.githubusercontent.com/StaroMoon/Cooking/master/submit_t.png' title=''/> Xgboost tree -&gt; 0.797 = 79.7 % <img src='https://raw.githubusercontent.com/StaroMoon/Cooking/master/submit_xgb.png' title=''/></p>
 
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
 
-<h1>
+<h1 font-size:3em>
 
 <center>
 
