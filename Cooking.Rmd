@@ -151,12 +151,13 @@ pred_tree <- predict(tree, dtm_test, type = "class")
   ![](https://raw.githubusercontent.com/StaroMoon/Cooking/master/boosting_tree.jpg)
   
 ##Why xgboost?
-  - Easy to install
+  - Easy to use
   - Good result for most data sets
   - It's many tunable parameters
   - Multiple thread
   - Take low time to compute
   - Most of winner on kaggle use this library
+  
 [more info](https://www.youtube.com/watch?v=X47SGnTMZIU)
   
 ##Create Xgboost model
