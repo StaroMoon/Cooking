@@ -97,7 +97,7 @@ dtm <- DocumentTermMatrix(corpus)
 dtm
 ```
 
-##Delete some sprase in matrix
+##Delete some sparse in matrix
 ```{r}
 dtm <- removeSparseTerms(dtm, 1-3/nrow(dtm))
 ```
@@ -148,6 +148,7 @@ pred_tree <- predict(tree, dtm_test, type = "class")
   
 ##What is xgboost?
   Xgboost is a R library. Gradient boosting is a machine learning technique , and what is gradient boosting?
+  
   ![](https://raw.githubusercontent.com/StaroMoon/Cooking/master/boosting_tree.jpg)
   
 ##Why xgboost?
