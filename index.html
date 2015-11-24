@@ -161,27 +161,27 @@ test &lt;- fromJSON(&quot;test.json&quot;, flatten = TRUE)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Plot graph from train</h2></hgroup><article  id="plot-graph-from-train">
 
-<p><div id="plot_id145777204-container" class="ggvis-output-container">
-<div id="plot_id145777204" class="ggvis-output"></div>
+<p><div id="plot_id813650694-container" class="ggvis-output-container">
+<div id="plot_id813650694" class="ggvis-output"></div>
 <div class="plot-gear-icon">
 <nav class="ggvis-control">
 <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
 <ul class="ggvis-dropdown">
 <li>
 Renderer: 
-<a id="plot_id145777204_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id145777204" data-renderer="svg">SVG</a>
+<a id="plot_id813650694_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id813650694" data-renderer="svg">SVG</a>
  | 
-<a id="plot_id145777204_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id145777204" data-renderer="canvas">Canvas</a>
+<a id="plot_id813650694_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id813650694" data-renderer="canvas">Canvas</a>
 </li>
 <li>
-<a id="plot_id145777204_download" class="ggvis-download" data-plot-id="plot_id145777204">Download</a>
+<a id="plot_id813650694_download" class="ggvis-download" data-plot-id="plot_id813650694">Download</a>
 </li>
 </ul>
 </nav>
 </div>
 </div>
 <script type="text/javascript">
-var plot_id145777204_spec = {
+var plot_id813650694_spec = {
   "data": [
     {
       "name": ".0/count1/stack2",
@@ -321,7 +321,7 @@ var plot_id145777204_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_id145777204").parseSpec(plot_id145777204_spec);
+ggvis.getPlot("plot_id813650694").parseSpec(plot_id813650694_spec);
 </script></p>
 
 </article></slide><slide class=''><hgroup><h2>Pre-processing data</h2></hgroup><article  id="pre-processing-data">
@@ -421,13 +421,15 @@ pred_tree &lt;- predict(tree, dtm_test, type = &quot;class&quot;)</pre>
 </article></slide><slide class=''><hgroup><h2>Why xgboost?</h2></hgroup><article  id="why-xgboost">
 
 <ul>
-<li>Easy to install</li>
+<li>Easy to use</li>
 <li>Good result for most data sets</li>
 <li>It&#39;s many tunable parameters</li>
 <li>Multiple thread</li>
 <li>Take low time to compute</li>
-<li>Most of winner on kaggle use this library <a href='https://www.youtube.com/watch?v=X47SGnTMZIU' title=''>more info</a></li>
+<li>Most of winner on kaggle use this library</li>
 </ul>
+
+<p><a href='https://www.youtube.com/watch?v=X47SGnTMZIU' title=''>more info</a></p>
 
 </article></slide><slide class=''><hgroup><h2>Create Xgboost model</h2></hgroup><article  id="create-xgboost-model">
 
